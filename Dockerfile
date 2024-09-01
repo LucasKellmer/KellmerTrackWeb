@@ -22,7 +22,10 @@ RUN ng build --configuration=production
 FROM nginx:alpine
 
 # Copiar build do Angular para a pasta padrão do Nginx
-COPY --from=BUILD /app/dist/kellmertrackweb/browser /usr/share/nginx/html/
+COPY --from=BUILD /app/dist/kellmertrackweb/browser /usr/share/nginx/html
+
+# Copiar a configuração customizada do Nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expor porta 80
 EXPOSE 80
