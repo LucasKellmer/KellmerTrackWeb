@@ -1,0 +1,97 @@
+<app-header></app-header>
+
+<div class="container col-sm-12">
+    <div class="card mt-5">
+        <div class="fs-5 card-header">
+            <label>Cadastro de Dispositivos</label>
+        </div>
+
+        <div class="card-body">
+            <form class="row" *ngIf="!loading" #dispositivos="ngForm" [formGroup]="dispositivoForm">
+
+                <div class="col-md-2">
+                    <label class="form-label">Número Interno</label>
+                    <input type="text" class="form-control" id="numeroInterno" maxlength="3" formControlName="numeroInterno" [readonly]="this.visualizaDispositivo">
+                    <div class="valida-campo"  *ngIf="dispositivoForm.get('numeroInterno')?.errors?.['required'] && (dispositivoForm.get('numeroInterno')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+
+                <div [ngClass]="(!this.visualizaDispositivo && !this.editaDispositivo) ? 'col-md-3 ps-0' : 'col-md-2 ps-0'">
+                    <label class="form-label">Motorista</label>
+                    <select class="form-select" formControlName="motorista" [attr.disabled]="this.visualizaDispositivo ? 'true' : null">
+                       <option value="" selected disabled hidden *ngIf="motoritasLoading">Carregando...</option>
+                       <option value="" selected disabled hidden>Selecione um motorista</option>
+                       <option *ngFor="let motorista of motoristas" [ngValue]="motorista.id">{{ motorista.descricao }}</option>
+                    </select>
+                    <div class="valida-campo" *ngIf="dispositivoForm.get('motorista')?.errors?.['required'] && (dispositivoForm.get('motorista')?.touched || submitted )">
+                        <p>Campo obrigatório</p>
+                    </div>
+                </div>
+
+                <div class="col-md-2 ps-0">
+                    <label class="form-label">Veículo</label>
+                    <select class="form-select" formControlName="veiculo" [attr.disabled]="this.visualizaDispositivo?true:null">
+                       <option value="" selected disabled hidden>Selecione um veículo</option>
+                       <option value="" *ngIf="veiculosLoading">Carregando...</option>
+                       <option *ngFor="let veiculo of veiculos" [ngValue]="veiculo.id">{{ veiculo.id }}</option>
+                    </select>
+                    <div class="valida-campo"  *ngIf="dispositivoForm.get('veiculo')?.errors?.['required'] && (dispositivoForm.get('veiculo')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+
+                <div class="col-md-2 ps-0">
+                    <label class="form-label">Modelo</label>
+                    <select class="form-select" formControlName="modelo" >
+                       <option value="" selected disabled hidden>Selecione um modelo</option>
+                       <option value="BLAZONLABS">BLAZONLABS</option>
+                       <option value="MECHATRONICS">MECHATRONICS</option>
+                    </select>
+                    <div class="valida-campo" *ngIf="dispositivoForm.get('numeroInterno')?.errors?.['required'] && (dispositivoForm.get('numeroInterno')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+                
+                <div [ngClass]="(!this.visualizaDispositivo && !this.editaDispositivo) ? 'col-md-3 ps-0' : 'col-md-2 ps-0'">
+                    <label class="form-label">Mac</label>
+                    <input type="text" class="form-control" id="mac" formControlName="mac" [readonly]="this.visualizaDispositivo">
+                    <div class="valida-campo"  *ngIf="dispositivoForm.get('numeroInterno')?.errors?.['required'] && (dispositivoForm.get('numeroInterno')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+
+                <div class="col-md-2 ps-0" *ngIf="this.visualizaDispositivo || this.editaDispositivo">
+                        <label class="form-label">Data vínculo</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="dataVinculo" formControlName="dataVinculo" readonly>
+                        <button class="btn btn-outline-primary" title="Apagar" type="button" id="button-addon2" [disabled]="!this.editaDispositivo" (click)="apagaVinculo()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eraser" viewBox="0 0 16 16">
+                                <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414zM8.746 13.547 3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Empresa</label>
+                    <input type="text" class="form-control" id="empresa" maxlength="3" formControlName="empresa" [readonly]="this.visualizaDispositivo">
+                    <div class="valida-campo"  *ngIf="dispositivoForm.get('empresa')?.errors?.['required'] && (dispositivoForm.get('empresa')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="gap-2  d-md-flex justify-content-md-end card-footer">
+            <button (click)="voltar()" class="btn btn-secondary">Voltar</button>
+            <button type="submit" (click)="cadastrarDispositivo()" class="btn btn-primary">Cadastrar</button>    
+        </div>
+         
+    </div>
+</div>
+
+<app-msg-modal [titulo]="titulo" [mensagem]="mensagem" *ngIf="this.msgErro == true">
+    <button class="btn btn-primary" (click)="this.msgErro = false">Ok</button>
+</app-msg-modal>
+
+  

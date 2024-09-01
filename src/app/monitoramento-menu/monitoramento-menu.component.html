@@ -1,0 +1,23 @@
+<div class="menu-container">
+    <div class="menu expanded" [ngClass]="{'expanded': menuExpanded}">
+        <span class="menu-symbol" (click)="expandirMenu()">&#11166;</span>
+        <div class="cards-container" *ngIf="showCards">
+            <div *ngFor="let veiculo of veiculos" (click)="veiculoClicked(veiculo)">
+                <div class="veiculo-card" [ngClass]="{'veiculo-card-selected':veiculo.selected}">
+                    <label class="card-veiculo">
+                        <i class="fa fa-truck fa-fw fa-lg"></i>
+                        {{veiculo.ultimaLocalizacao.veiculoId}}
+                    </label>
+                    <span class="card-text" [ngClass]="{'card-icon-selected':veiculo.selected}">
+                        <i class="fa fa-user-circle-o fa-fw fa-lg card-icon" ></i>
+                        {{veiculo.ultimaLocalizacao.motorista}}
+                    </span>
+                    <span class="card-text" [ngClass]="{'card-icon-selected':veiculo.selected}">
+                        <i class="fa fa-clock-o fa-fw fa-lg card-icon" fa-fw></i>
+                        {{veiculo.ultimaLocalizacao.momento | date:'dd/MM HH:mm'}}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

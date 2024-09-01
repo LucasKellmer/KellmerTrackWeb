@@ -1,0 +1,55 @@
+
+<app-trajetos-menu
+    (playClick)="btnPlayClicked()"
+    (pauseClick)="btnPauseClicked()"
+    (montarTrajetoClick)="btnMontarTrajetoClicked($event)"
+    (velocidadeTrajetoClick)="alteraVelocidadeTrajeto($event)"
+    (showEntregas)="mostrarEntregas($event)"
+    [veiculo]="veiculo"
+    [rotacoes]="rotacoes"
+    [dataTrajeto]="dataTrajeto"
+    [entregas]="entregas"
+></app-trajetos-menu>
+
+<div class="map" id="map">
+    <google-map #map
+                width="100%"
+                height="100%"
+                [center]="center"
+                [options]="mapOptions"
+                (mapClick)="moveMap($event)"
+                (mapMousemove)="move($event)">
+
+                <map-marker
+                    [position]="{ lat: currentLocation.latitude, lng: currentLocation.longitude }"
+                    [icon]="veiculoIcon"
+                    [label]="veiculo">
+                </map-marker>
+
+                <map-circle *ngFor="let usina of usinas"
+                    [center]="{ lat: usina.latitude, lng: usina.longitude }"
+                    [radius]="usina.raio"
+                    [options]="circleOptions">
+                </map-circle>
+
+                <map-marker *ngFor="let usina of usinas"
+                    [position]="{ lat: usina.latitude, lng: usina.longitude }"
+                    [icon]="usinaIcon"
+                    [label]="usina.nome">  
+                </map-marker>
+
+                <div *ngIf="showEntregas">
+                    <map-marker *ngFor="let entrega of entregas"
+                        [position]="{ lat: entrega.contrato.obra.latitude, lng: entrega.contrato.obra.longitude }"
+                        [icon]="entregaIcon"
+                        [label]="entrega.contrato.obra.descricao">
+                    </map-marker>
+
+                    <map-circle *ngFor="let entrega of entregas"
+                        [center]="{ lat: entrega.contrato.obra.latitude, lng: entrega.contrato.obra.longitude }"
+                        [radius]="100"
+                        [options]="circleOptions">
+                    </map-circle>
+                </div>
+    </google-map> 
+</div>

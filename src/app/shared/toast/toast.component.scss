@@ -1,0 +1,16 @@
+.position-toast{
+    width: max-content;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #343a40;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 10px 20px;
+  }

@@ -1,0 +1,39 @@
+<app-header></app-header>
+
+<div class="container col-sm-12">
+    <div class="card mt-5">
+        <div class="fs-5 card-header">
+            <label>Cadastro</label>
+        </div>
+
+        <div class="card-body">
+            <form class="row" *ngIf="!loading" #dispositivos="ngForm" [formGroup]="motoristaForm">
+
+                <div class="col-md-2">
+                    <label class="form-label">Id</label>
+                    <input type="text" class="form-control" id="id" formControlName="id" readonly name="id" [(ngModel)]="motoristaNextId">
+                    <div class="valida-campo"  *ngIf="motoristaForm.get('id')?.errors?.['required'] && (motoristaForm.get('id')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+
+                <div class="col-md-10 ps-0">
+                    <label class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nome"formControlName="nome" [readonly]="this.visualizaMotorista">
+                    <div class="valida-campo"  *ngIf="motoristaForm.get('nome')?.errors?.['required'] && (motoristaForm.get('nome')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="gap-2  d-md-flex justify-content-md-end card-footer">
+            <button (click)="voltar()" class="btn btn-secondary">Voltar</button>
+            <button type="submit" (click)="cadastrarMotorista()" class="btn btn-primary">Cadastrar</button>    
+        </div>
+         
+    </div>
+    
+</div>
+  

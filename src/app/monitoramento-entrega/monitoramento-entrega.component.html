@@ -1,0 +1,40 @@
+<div class="container" *ngIf="verEntrega">
+    <div class="title">
+        <span>RESUMO DA ENTREGA</span>
+    </div>
+    <span class="no-content" *ngIf="!entrega">Nenhuma entrega ativa</span>
+    <div class="info-entrega" *ngIf="entrega">
+        <span><b>Obra: </b>{{ entrega.obraDesc }}</span>
+        <span><b>Quantidade: </b>{{ entrega.quantidade }}m&#179;</span>
+        <span><b>Status: </b>
+            {{ 
+                entrega.status == 'TRANSITO' ? 'Em rota de entrega' : entrega.status == 'PENDENTE' ? 'Pendente' : 'Entregue'
+            }}
+        </span>
+    </div>
+    <div class="title" style="border-radius: 0;">
+        <span>HISTÓRICO DE ROTAÇÃO</span>
+    </div>
+    <div *ngFor="let rotacao of rotacoes">
+        <ul>
+            <li>
+             <span>
+                {{ rotacao.momento | date:'HH:mm'}}
+             </span>
+                {{ rotacao.rpm > 0 ? 'MISTURANDO' : rotacao.rpm < 0 ? 'DESCARREGANDO' : 'PARADO' }}
+             </li> 
+         </ul>
+    </div>
+    <!--<div *ngFor="let rotacao of rotacoesAgrupadas">
+        <div>
+            {{ rotacao.date | date:'HH:mm'}}
+        </div>
+        <div *ngFor="let item of rotacao.games">
+            <ul>
+                <li>
+                    {{ item.rpm > 0 ? 'MISTURANDO' : item.rpm < 0 ? 'DESCARREGANDO' : 'PARADO' }}
+                    </li> 
+                </ul>
+        </div>
+    </div>-->
+</div>

@@ -1,0 +1,71 @@
+<app-header></app-header>
+
+<div class="container col-sm-12">
+    <div class="card mt-5">
+        <div class="fs-5 card-header">
+            <label>Cadastro de Entregas</label>
+        </div>
+
+        <div class="card-body">
+            <form class="row" *ngIf="!loading" #entregas="ngForm" [formGroup]="entregaForm">
+
+                <div [ngClass]="(!this.visualizaEntrega && !this.editaEntrega) ? 'col-md-6' : 'col-md-4 '">
+                    <label class="form-label">Obra</label>
+                    <select class="form-select" formControlName="obra" [attr.disabled]="this.visualizaEntrega?true:null">
+                       <option value="" selected disabled hidden>Selecione uma obra</option>
+                       <option value="" *ngIf="obrasLoading">Carregando...</option>
+                       <option *ngFor="let obra of obras" [ngValue]="obra.id">{{ obra.descricao }}</option>
+                    </select>
+                    <div class="valida-campo"  *ngIf="entregaForm.get('obra')?.errors?.['required'] && (entregaForm.get('obra')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+
+                <div class="col-md-3 ps-0">
+                    <label class="form-label">Veículo</label>
+                    <select class="form-select" formControlName="veiculo" [attr.disabled]="this.visualizaEntrega?true:null">
+                       <option value="" selected disabled hidden>Selecione um veículo</option>
+                       <option value="" *ngIf="veiculosLoading">Carregando...</option>
+                       <option *ngFor="let veiculo of veiculos" [ngValue]="veiculo.id">{{ veiculo.id }}</option>
+                    </select>
+                    <div class="valida-campo"  *ngIf="entregaForm.get('veiculo')?.errors?.['required'] && (entregaForm.get('veiculo')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+
+                <div class="col-md-3 ps-0">
+                    <label class="form-label">Quantidade</label>
+                    <input type="number" class="form-control" id="quantidade" formControlName="quantidade" [readonly]="this.visualizaEntrega">
+                    <div class="valida-campo"  *ngIf="entregaForm.get('quantidade')?.errors?.['required'] && (entregaForm.get('quantidade')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                    <div class="valida-campo"  *ngIf="entregaForm.get('quantidade')?.errors?.['required'] && (entregaForm.get('quantidade')?.touched || submitted )">
+                        <label>Quantidade deve ser maior que 0</label>
+                    </div>
+                </div>
+
+                <div class="col-md-2 ps-0" *ngIf="visualizaEntrega || editaEntrega">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" id="status" name="status" formControlName="status" [attr.disabled]="true">  
+                        <option value="0">PENDENTE</option>
+                        <option value="1">TRANSITO</option>
+                        <option value="2">ENTREGUE</option>
+                    </select>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="gap-2 d-md-flex justify-content-md-end card-footer">
+            <button (click)="voltar()" class="btn btn-secondary">Voltar</button>
+            <button type="submit" (click)="cadastrarEntrega()" class="btn btn-primary">Cadastrar</button>    
+        </div>
+         
+    </div>
+</div>
+
+<app-msg-modal [titulo]="titulo" [mensagem]="mensagem" *ngIf="this.msgErro == true">
+    <button class="btn btn-primary" (click)="this.msgErro = false">Ok</button>
+</app-msg-modal>
+
+  

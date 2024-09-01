@@ -1,0 +1,11 @@
+
+/* Estilo para centralizar o modal */
+.modal {
+    display: none;
+}
+
+.modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

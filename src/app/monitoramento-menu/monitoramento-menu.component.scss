@@ -1,0 +1,160 @@
+.menu-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.menu{
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    align-items: center;
+    width: 30px;
+    height: calc(100vh - 50px);
+    background-color: rgba(88, 88, 88, 0.701);
+    cursor: pointer;
+    transition: width 0.3s;
+    z-index: 999;
+}
+
+.expanded{
+    width: 300px;
+    cursor: auto;
+}
+
+.menu-symbol{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 100%;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.cards-container{
+    height: 100%;
+    width: 100%;
+}
+
+/*.veiculo-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: linear-gradient(135deg, #ffffff, #b0ccfc7a, #2756ba84, #2756ba84);
+    background-size: 300%;
+    background-position: left;
+    width: 95%;
+    color: rgb(48, 48, 48);
+    margin-top: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 5px 5px 5px rgba(8, 8, 52, 0.185);
+    transition: background-position 1s;
+    padding-left:5px;
+    padding-right:5px;
+}*/
+
+span{
+    color: transparent;
+    background-image: linear-gradient(135deg, #393939, #484848,);
+    -webkit-background-clip: text;
+    background-size: 300%;  
+    transition: background-position 0.5s ease, background-size 0.5s ease;
+}
+
+.veiculo-card:hover{
+    border-radius: 7px;
+    scale: 1.02;
+    background-position: right;
+
+    span{
+        color: white
+    }
+
+    .card-veiculo{
+        border-radius: 7px;
+        scale: 1.02;
+        background-position: right;
+        
+    }
+}
+
+.veiculo-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: linear-gradient(135deg, #acacac, #b9b9b9, #c8c8c8, #e0e0e0, #acacac, #b9b9b9, #c8c8c8, #e0e0e0, #acacac, #b9b9b9, #c8c8c8, #e0e0e0, );
+    background-size: 300%;
+    background-position: left;
+    width: 95%;
+    color: rgb(48, 48, 48);
+    margin-top: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 5px 5px 5px rgba(8, 8, 52, 0.185);
+    transition: background-position 1s;
+    padding-left:5px;
+    padding-right:5px;
+}
+
+.veiculo-card-selected{
+    border-radius: 7px;
+    scale: 1.02;
+    background-position: right;
+
+    span{
+        background-position: right;  
+    }
+
+    .card-veiculo{
+        border-radius: 7px;
+        scale: 1.02;
+        background-position: right;
+    }
+}
+
+.veiculo-card span {
+    //border-bottom: 2px dashed #282828;
+    margin-bottom: 2px;
+}
+
+.veiculo-card span:last-child {
+    border-bottom: none;
+    margin-bottom: 2px;
+}
+
+.veiculo-card span:first-child {
+    border-bottom: none;
+}
+
+.card-text{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.card-veiculo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -10px;
+    //background-color: rgb(224, 189, 15);
+    background-image: linear-gradient(135deg, #edc800, #edc600, #f3cf00, #ffe800, #edc800, #edc600, #f3cf00, #ffe800, #edc800, #edc600, #f3cf00, #ffe800);
+    background-size: 300%;
+    width: 200px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.185);
+    transition: background-position 1s;
+}
+
+.card-icon{
+    //color: rgb(36, 103, 209);
+    margin-right: 5px;
+}
+
+.card-icon-selected{
+    color: white;
+}

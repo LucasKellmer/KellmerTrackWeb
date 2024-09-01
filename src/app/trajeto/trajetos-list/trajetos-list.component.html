@@ -1,0 +1,57 @@
+<app-header></app-header>
+
+<div class="container col-sm-12">
+    <div class="card mt-5">
+        <div class="fs-5 card-header">
+            <label>Lista de Trajetos Diários</label>
+        </div>
+
+        <div class="card-body">
+
+            <form class="row">
+                <div class="col-md-2 ps-0">
+                    <label class="form-label">Data inicial</label>
+                    <input type="date" class="form-control" id="dataIni" name="dataIni" [(ngModel)]="dataIni">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Data final</label>
+                    <input type="date" class="form-control" id="dataFim" name="dataFim" [(ngModel)]="dataFim">
+                </div>
+                <div class="col-md-8 ps-0">
+                    <label class="form-label">Veículo</label>
+                    <input type="text" class="form-control" id="veiculo" name="veiculo" [(ngModel)]="veiculo">
+                </div>
+            </form>
+        </div>
+
+        <div class="gap-2 d-md-flex justify-content-md-end card-footer">
+            <button type="submit" class="btn btn-primary" (click)="pesquisar()">Pesquisar</button>    
+        </div> 
+    </div>    
+</div>
+
+<div class="container col-sm-12 mt-5">
+    <div class="card">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <app-loading *ngIf="loading"></app-loading>
+                <ngx-datatable *ngIf="!loading" class="material container  rounded " [rows]="rows" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" 
+                [limit]="7" [columnMode]="ColumnMode.force">
+                    <ngx-datatable-column name="Id"prop="id" [minWidth]="70" [maxWidth]="120">
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Data"  prop="data" [minWidth]="200" [maxWidth]="1000" >
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Veiculo"  prop="veiculo" [minWidth]="200" [maxWidth]="1000" >
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Ações" prop="id" [minWidth]="100" [maxWidth]="100">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            <div>
+                                <app-btn-grid-visualizar (click)="visualizar(row.id)"></app-btn-grid-visualizar>
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>    
+        </div>
+    </div>
+</div>

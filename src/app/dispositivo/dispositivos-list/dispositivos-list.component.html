@@ -1,0 +1,86 @@
+<app-header></app-header>
+
+<div class="container col-sm-12">
+    <div class="card mt-5">
+        <div class="fs-5 card-header">
+            <label>Lista de Dispositivos</label>
+        </div>
+
+        <div class="card-body">
+
+            <form class="row">
+                <div class="col-md-2">
+                    <label class="form-label">Número Interno</label>
+                    <input type="text" class="form-control" id="numeroInterno" name="numeroInterno" [(ngModel)]="numeroInterno">
+                  </div>
+
+                <div class="col-md-3 ps-0">
+                    <label class="form-label">Motorista</label>
+                    <select class="form-select" name="motorista" [(ngModel)]="motoristaSelecionado">
+                       <option value="999">Todos</option>
+                       <option *ngIf="motoritasLoading">Carregando...</option>
+                       <option *ngFor="let motorista of motoristas" [ngValue]="motorista.id">{{ motorista.descricao }}</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3 ps-0">
+                    <label class="form-label">Veículo</label>
+                    <select class="form-select" name="veiculo" [(ngModel)]="veiculoSelecionado">
+                       <option value="todos">Todos</option>
+                       <option *ngIf="veiculosLoading">Carregando...</option>
+                       <option *ngFor="let veiculo of veiculos" [ngValue]="veiculo.id">{{ veiculo.id }}</option>
+                    </select>
+                </div>
+                
+                <div class="col-md-4 ps-0">
+                  <label class="form-label">Mac</label>
+                  <input type="text" class="form-control" id="mac" name="mac" [(ngModel)]="mac">
+                </div>
+              
+            </form>
+        </div>
+
+        <div class="gap-2  d-md-flex justify-content-md-end card-footer">
+            <app-btn-cadastrar (click)="cadastrarDispositivo()"></app-btn-cadastrar>
+            <button type="submit" class="btn btn-primary" (click)="pesquisar()" >Pesquisar</button>    
+        </div>
+               
+    </div>    
+</div>
+
+<div class="container col-sm-12 mt-5">
+    <div class="card">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <app-loading *ngIf="loading"></app-loading>
+                <ngx-datatable *ngIf="!loading" class="material container  rounded " [rows]="rows" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" 
+                [limit]="7" >
+                    <ngx-datatable-column name="Motorista"  prop="motoristaNome" [minWidth]="200" [maxWidth]="300" >
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Veículo"prop="veiculo" [minWidth]="200" [maxWidth]="300">
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Número Interno"  prop="numeroInterno" [minWidth]="200" [maxWidth]="300">
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Mac" prop="mac" [minWidth]="200" [maxWidth]="300">
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Modelo" prop="modelo" [minWidth]="200" [maxWidth]="300">
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Ações" prop="numeroInterno" [minWidth]="360" [maxWidth]="400" >
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            <div>
+                                <app-btn-grid-excluir (click)="excluir(row)"></app-btn-grid-excluir>
+                                <app-btn-grid-editar (click)="editar(row)"></app-btn-grid-editar>
+                                <app-btn-grid-visualizar (click)="visualizar(row)"></app-btn-grid-visualizar>
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>    
+        </div>
+    </div>
+</div>
+
+<app-btn-excluir [mostrarModal]="this.btnExcluir">
+    <button type="button" class="btn btn-secondary" (click)="btnExcluir = false">Voltar</button>
+    <button class="btn btn-danger" (click)="excluirDispositivo()">Excluir</button>
+</app-btn-excluir>

@@ -1,0 +1,14 @@
+.modal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+    .modal-header{
+      gap: 15px;
+      svg{
+        width: 25px;
+        height: 25px;
+        color: var(--vermelho);
+      }
+    }
+  }
+  
