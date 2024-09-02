@@ -1,0 +1,63 @@
+<app-header></app-header>
+
+<div class="container col-sm-12">
+    <div class="card mt-5">
+        <div class="fs-5 card-header">
+            <label>Lista de Empresas</label>
+        </div>
+
+        <div class="card-body">
+
+            <form class="row">
+                <div class="col-md-6">
+                    <label class="form-label">Código</label>
+                    <input type="text" class="form-control" id="codigo" name="codigo" [(ngModel)]="codigo" (keydown)="EnterSubmit($event)">
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Descrição</label>
+                    <input type="text" class="form-control" id="descricao" name="descricao" [(ngModel)]="descricao" (keydown)="EnterSubmit($event)">
+                </div>
+            </form>
+        </div>
+
+        <div class="gap-2  d-md-flex justify-content-md-end card-footer">
+            <app-btn-cadastrar (click)="cadastrarEmpresa()"></app-btn-cadastrar>
+            <button type="submit" class="btn btn-primary" (click)="pesquisar()" >Pesquisar</button>    
+        </div>
+               
+    </div>    
+</div>
+
+<div class="container col-sm-12 mt-5">
+    <div class="card">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <app-loading *ngIf="loading"></app-loading>
+                <ngx-datatable *ngIf="!loading" class="material container  rounded " [rows]="rows" [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" 
+                [limit]="7" >
+                    <ngx-datatable-column name="Código"  prop="codigo" [minWidth]="200">
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Descricao"prop="descricao" [minWidth]="200">
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Raio"  prop="raio" [minWidth]="200">
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Ações" prop="codigo" [minWidth]="150">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            <div>
+                                <app-btn-grid-excluir (click)="excluir(row)"></app-btn-grid-excluir>
+                                <app-btn-grid-editar (click)="editar(row)"></app-btn-grid-editar>
+                                <app-btn-grid-visualizar (click)="visualizar(row)"></app-btn-grid-visualizar>
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>    
+        </div>
+    </div>
+</div>
+
+<app-btn-excluir [mostrarModal]="this.btnExcluir">
+    <button type="button" class="btn btn-secondary" (click)="btnExcluir = false">Voltar</button>
+    <button class="btn btn-danger" (click)="excluirEmpresa()">Excluir</button>
+</app-btn-excluir>

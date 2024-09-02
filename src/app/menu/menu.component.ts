@@ -48,4 +48,12 @@ export class MenuComponent implements OnInit{
   telaTrajetos(){
     this.router.navigate(['trajetos'])
   }
+
+  telaEmpresas(){
+    this.router.navigate(['empresas'])
+  }
+
+  telaObras(){
+    this.router.navigate(['obras'])
+  }
 }

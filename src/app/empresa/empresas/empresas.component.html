@@ -1,0 +1,67 @@
+<app-header></app-header>
+
+<div class="container col-sm-12">
+    <div class="card mt-5">
+        <div class="fs-5 card-header">
+            <label>Cadastro de Empresas</label>
+        </div>
+
+        <div class="card-body">
+            <form class="row" *ngIf="!loading" #empresas="ngForm" [formGroup]="empresaForm">
+
+                <div class="col-md-2">
+                    <label class="form-label">Código</label>
+                    <input type="text" class="form-control" id="codigo" maxlength="3" formControlName="codigo" [readonly]="this.visualizaEmpresa" (blur)="validaCodigoEmpresa()">
+                    <div class="valida-campo" *ngIf="(empresaForm.get('codigo')?.errors?.['required'] || empresaForm.get('codigo')?.errors?.['incorrect']) && (empresaForm.get('codigo')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 ps-0">
+                    <label class="form-label">Descrição</label>
+                    <input type="text" class="form-control" id="descricao" formControlName="descricao" [readonly]="this.visualizaEmpresa">
+                    <div class="valida-campo"  *ngIf="empresaForm.get('descricao')?.errors?.['required'] && (empresaForm.get('descricao')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+
+                <div class="col-md-2 ps-0">
+                    <label class="form-label">Latitude</label>
+                    <input type="text" class="form-control" id="latitude" formControlName="latitude" [readonly]="this.visualizaEmpresa">
+                    <div class="valida-campo"  *ngIf="empresaForm.get('latitude')?.errors?.['required'] && (empresaForm.get('latitude')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+
+                <div class="col-md-2 ps-0">
+                    <label class="form-label">Longitude</label>
+                    <input type="text" class="form-control" id="longitude" formControlName="longitude" [readonly]="this.visualizaEmpresa">
+                    <div class="valida-campo"  *ngIf="empresaForm.get('longitude')?.errors?.['required'] && (empresaForm.get('longitude')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+
+                <div class="col-md-2 ps-0">
+                    <label class="form-label">Raio</label>
+                    <input type="number" class="form-control" id="raio" formControlName="raio" [readonly]="this.visualizaEmpresa">
+                    <div class="valida-campo"  *ngIf="empresaForm.get('raio')?.errors?.['required'] && (empresaForm.get('raio')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="gap-2  d-md-flex justify-content-md-end card-footer">
+            <button (click)="voltar()" class="btn btn-secondary">Voltar</button>
+            <button type="submit" (click)="cadastrarEmpresa()" class="btn btn-primary">Cadastrar</button>    
+        </div>
+         
+    </div>
+</div>
+
+<app-msg-modal [titulo]="titulo" [mensagem]="mensagem" *ngIf="this.msgErro == true">
+    <button class="btn btn-primary" (click)="this.msgErro = false">Ok</button>
+</app-msg-modal>
+
+  

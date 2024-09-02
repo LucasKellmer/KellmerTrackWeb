@@ -29,7 +29,7 @@
                 <map-marker *ngFor="let usina of usinas"
                     [position]="{ lat: usina.latitude, lng: usina.longitude }"
                     [icon]="usinaIcon"
-                    [label]="usina.nome">  
+                    [label]="usina.descricao">  
                 </map-marker>
 
                 <map-circle *ngFor="let usina of usinas"

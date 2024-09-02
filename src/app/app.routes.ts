@@ -10,6 +10,10 @@ import { EntregasListComponent } from './entrega/entregas-list/entregas-list.com
 import { MonitoramentoComponent } from './monitoramento/monitoramento.component';
 import { TrajetosComponent } from './trajeto/trajetos/trajetos.component';
 import { TrajetosListComponent } from './trajeto/trajetos-list/trajetos-list.component';
+import { EmpresasListComponent } from './empresa/empresas-list/empresas-list.component';
+import { EmpresasComponent } from './empresa/empresas/empresas.component';
+import { ObrasListComponent } from './obra/obras-list/obras-list.component';
+import { ObrasComponent } from './obra/obras/obras.component';
 
 export const routes: Routes = [
     { path: 'dispositivos', component: DispositivosListComponent },
@@ -35,4 +39,14 @@ export const routes: Routes = [
     { path: 'monitoramento', component: MonitoramentoComponent },
     { path: 'trajetos', component: TrajetosListComponent },
     { path: 'trajetos/:id', component: TrajetosComponent },
+
+    { path: 'empresas', component: EmpresasListComponent },
+    { path: 'empresas/novo', component: EmpresasComponent },
+    { path: 'empresas/:codigo', component: EmpresasComponent },
+    { path: 'empresas/editar/:codigo', component: EmpresasComponent },
+
+    { path: 'obras', component: ObrasListComponent },
+    { path: 'obras/novo', component: ObrasComponent },
+    { path: 'obras/:id', component: ObrasComponent },
+    { path: 'obras/editar/:id', component: ObrasComponent },
 ];
