@@ -56,4 +56,12 @@ export class MenuComponent implements OnInit{
   telaObras(){
     this.router.navigate(['obras'])
   }
+
+  telaClientes(){
+    this.router.navigate(['clientes'])
+  }
+
+  telaContratos(){
+    this.router.navigate(['contratos'])
+  }
 }

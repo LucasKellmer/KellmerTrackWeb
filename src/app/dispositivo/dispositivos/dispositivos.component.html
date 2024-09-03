@@ -72,9 +72,13 @@
                         </button>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label class="form-label">Empresa</label>
-                    <input type="text" class="form-control" id="empresa" maxlength="3" formControlName="empresa" [readonly]="this.visualizaDispositivo">
+                    <select class="form-select" formControlName="empresa" [attr.disabled]="this.visualizaDispositivo?true:null">
+                       <option value="" selected disabled hidden>Selecione um veículo</option>
+                       <option value="" *ngIf="empresasLoading">Carregando...</option>
+                       <option *ngFor="let empresa of empresas" [ngValue]="empresa.id">{{ empresa.descricao }}</option>
+                    </select>
                     <div class="valida-campo"  *ngIf="dispositivoForm.get('empresa')?.errors?.['required'] && (dispositivoForm.get('empresa')?.touched || submitted )">
                         <label>Campo obrigatório</label>
                     </div>

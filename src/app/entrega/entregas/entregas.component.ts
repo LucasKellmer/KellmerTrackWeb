@@ -25,8 +25,8 @@ export class EntregasComponent {
   entregaForm! : UntypedFormGroup
   entregaId : any
   entregaNextId : any
-  obras : any
-  obrasLoading : boolean = false
+  contratos : any
+  contratosLoading : boolean = false
   veiculos : any
   veiculosLoading : boolean = false
   submitted = false;
@@ -47,7 +47,7 @@ export class EntregasComponent {
         id : new UntypedFormControl(''),
         momento : new UntypedFormControl(''),
         veiculo : new UntypedFormControl('', [Validators.required]),
-        obra : new UntypedFormControl('', [Validators.required]),
+        contrato : new UntypedFormControl('', [Validators.required]),
         quantidade : new UntypedFormControl('', [Validators.required]),
         status : new UntypedFormControl(''),
         })
@@ -64,18 +64,18 @@ export class EntregasComponent {
         this.entregaService.nextId().subscribe((dados : any)=>{
           this.entregaNextId = dados
         })
-        this.buscaObras()
+        this.buscaContrato()
         this.buscaVeiculos()
         this.visualizaEntrega = false
         this.editaEntrega = false
       }
     }
   
-    buscaObras(){
-      this.obrasLoading = true
-      this.service.consultar('obras').subscribe((dados : any)=>{
-        this.obras = dados
-        this.obrasLoading = false
+    buscaContrato(){
+      this.contratosLoading = true
+      this.service.consultar('contratos').subscribe((dados : any)=>{
+        this.contratos = dados
+        this.contratosLoading = false
       })
     }
 
@@ -94,11 +94,11 @@ export class EntregasComponent {
         this.entregaForm = this.formBuider.group({
           id : entrega.id,
           veiculo : entrega.veiculo,
-          obra : entrega.contrato.obra.id,
+          contrato : entrega.contrato.contrato.id,
           quantidade : entrega.quantidade,
           status : entrega.status
         })
-        this.buscaObras()
+        this.buscaContrato()
         this.buscaVeiculos()
         this.desabilitaCombobox()
       })
@@ -110,11 +110,11 @@ export class EntregasComponent {
         this.entregaForm = this.formBuider.group({
           id : entrega.id,
           veiculo : entrega.veiculo,
-          obra : entrega.contrato.obra.id,
+          contrato : entrega.contrato.contrato.id,
           quantidade : entrega.quantidade,
           status : entrega.status
         })
-        this.buscaObras()
+        this.buscaContrato()
         this.buscaVeiculos()
         this.desabilitaCombobox()
       })
@@ -122,7 +122,7 @@ export class EntregasComponent {
   
     desabilitaCombobox(){
       if(this.visualizaEntrega){
-        this.entregaForm.get('obra')?.disable();
+        this.entregaForm.get('contrato')?.disable();
         this.entregaForm.get('veiculo')?.disable();
       }
       this.entregaForm.get('status')?.disable();
@@ -140,7 +140,7 @@ export class EntregasComponent {
           id : this.entregaForm.get('id')?.value,
           momento : new Date,
           veiculo : this.entregaForm.get('veiculo')?.value,
-          obra : this.entregaForm.get('obra')?.value,
+          contrato : this.entregaForm.get('contrato')?.value,
           quantidade : this.entregaForm.get('quantidade')?.value
         }
   

@@ -3,25 +3,36 @@
 <div class="container col-sm-12">
     <div class="card mt-5">
         <div class="fs-5 card-header">
-            <label>Lista de Obras</label>
+            <label>Lista de Contratos</label>
         </div>
 
         <div class="card-body">
 
             <form class="row">
-                <div class="col-md-6">
-                    <label class="form-label">Descrição</label>
-                    <input type="text" class="form-control" id="descricao" name="descricao" [(ngModel)]="descricao" (keydown)="EnterSubmit($event)">
+                <div class="col-md-2">
+                    <label class="form-label">Número</label>
+                    <input type="text" class="form-control" id="numero" name="numero" [(ngModel)]="numero">
                 </div>
+
+                <div class="col-md-4 ps-0">
+                    <label class="form-label">Empresa</label>
+                    <select class="form-select" name="empresa" [(ngModel)]="empresaSelecionada">
+                       <option value="999">Todas</option>
+                       <option *ngIf="empresasLoading">Carregando...</option>
+                       <option *ngFor="let empresa of empresas" [ngValue]="empresa.codigo">{{ empresa.descricao }}</option>
+                    </select>
+                </div>
+
                 <div class="col-md-6 ps-0">
-                    <label class="form-label">Cidade</label>
-                    <input type="text" class="form-control" id="cidade" name="cidade" [(ngModel)]="cidade" (keydown)="EnterSubmit($event)">
+                    <label class="form-label">Cliente</label>
+                    <input type="text" class="form-control" id="cliente" name="cliente" [(ngModel)]="cliente">
                 </div>
+              
             </form>
         </div>
 
-        <div class="gap-2 d-md-flex justify-content-md-end card-footer">
-            <app-btn-cadastrar (click)="cadastrarObra()"></app-btn-cadastrar>
+        <div class="gap-2  d-md-flex justify-content-md-end card-footer">
+            <app-btn-cadastrar (click)="cadastrarDispositivo()"></app-btn-cadastrar>
             <button type="submit" class="btn btn-primary" (click)="pesquisar()" >Pesquisar</button>    
         </div>
                
@@ -35,17 +46,15 @@
                 <app-loading *ngIf="loading"></app-loading>
                 <ngx-datatable *ngIf="!loading" class="material container  rounded " [rows]="rows" [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" 
                 [limit]="7" >
-                    <ngx-datatable-column name="Id"  prop="id" [minWidth]="200">
+                    <ngx-datatable-column name="Número"  prop="numero" [minWidth]="200" [maxWidth]="200" >
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="Descrição"prop="descricao" [minWidth]="200">
+                    <ngx-datatable-column name="Obra"prop="obra" [minWidth]="200">
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="Cidade"  prop="cidade" [minWidth]="200">
+                    <ngx-datatable-column name="Empresa"  prop="empresa" [minWidth]="200">
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="Número"  prop="numero" [minWidth]="200">
+                    <ngx-datatable-column name="Cliente" prop="cliente" [minWidth]="200">
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="Bairro"  prop="bairro" [minWidth]="200">
-                    </ngx-datatable-column>
-                    <ngx-datatable-column name="Ações" prop="id" [minWidth]="150">
+                    <ngx-datatable-column name="Ações" prop="numero" [minWidth]="200" >
                         <ng-template let-row="row" ngx-datatable-cell-template>
                             <div>
                                 <app-btn-grid-excluir (click)="excluir(row)"></app-btn-grid-excluir>
@@ -62,5 +71,5 @@
 
 <app-btn-excluir [mostrarModal]="this.btnExcluir">
     <button type="button" class="btn btn-secondary" (click)="btnExcluir = false">Voltar</button>
-    <button class="btn btn-danger" (click)="excluirObra()">Excluir</button>
+    <button class="btn btn-danger" (click)="excluirDispositivo()">Excluir</button>
 </app-btn-excluir>

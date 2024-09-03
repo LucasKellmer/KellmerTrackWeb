@@ -14,6 +14,10 @@ import { EmpresasListComponent } from './empresa/empresas-list/empresas-list.com
 import { EmpresasComponent } from './empresa/empresas/empresas.component';
 import { ObrasListComponent } from './obra/obras-list/obras-list.component';
 import { ObrasComponent } from './obra/obras/obras.component';
+import { ContratosListComponent } from './contrato/contratos-list/contratos-list.component';
+import { ContratosComponent } from './contrato/contratos/contratos.component';
+import { ClientesListComponent } from './cliente/clientes-list/clientes-list.component';
+import { ClientesComponent } from './cliente/clientes/clientes.component';
 
 export const routes: Routes = [
     { path: 'dispositivos', component: DispositivosListComponent },
@@ -49,4 +53,14 @@ export const routes: Routes = [
     { path: 'obras/novo', component: ObrasComponent },
     { path: 'obras/:id', component: ObrasComponent },
     { path: 'obras/editar/:id', component: ObrasComponent },
+
+    { path: 'contratos', component: ContratosListComponent },
+    { path: 'contratos/novo', component: ContratosComponent },
+    { path: 'contratos/:id', component: ContratosComponent },
+    { path: 'contratos/editar/:id', component: ContratosComponent },
+
+    { path: 'clientes', component: ClientesListComponent },
+    { path: 'clientes/novo', component: ClientesComponent },
+    { path: 'clientes/:id', component: ClientesComponent },
+    { path: 'clientes/editar/:id', component: ClientesComponent },
 ];

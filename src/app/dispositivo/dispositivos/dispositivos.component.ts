@@ -32,6 +32,8 @@ export class DispositivosComponent implements OnInit {
   submitted = false;
   numeroInternoErro : boolean = false
   veiculoErro : boolean = false
+  empresas : any
+  empresasLoading : boolean = false
   macErro: boolean = false
   titulo : any
   mensagem : any
@@ -75,6 +77,7 @@ export class DispositivosComponent implements OnInit {
     }else{
       this.buscaMotorista()
       this.buscaVeiculos()
+      this.buscaEmpresas()
       this.visualizaDispositivo = false
       this.editaDispositivo = false
     }
@@ -93,6 +96,14 @@ export class DispositivosComponent implements OnInit {
     this.service.consultar('veiculos').subscribe((dados: any)=>{
       this.veiculos = dados
       this.veiculosLoading = false
+    })
+  }
+
+  buscaEmpresas(){
+    this.empresasLoading = true
+    this.service.consultar('empresas').subscribe((dados: any)=>{
+      this.empresas = dados
+      this.empresasLoading = false
     })
   }
 
@@ -117,6 +128,7 @@ export class DispositivosComponent implements OnInit {
       })
       this.buscaMotorista()
       this.buscaVeiculos()
+      this.buscaEmpresas()
     })
   }
 
@@ -134,6 +146,7 @@ export class DispositivosComponent implements OnInit {
       })
       this.buscaMotorista()
       this.buscaVeiculos()
+      this.buscaEmpresas()
       this.desabilitaCombobox()
     })
   }
@@ -142,6 +155,7 @@ export class DispositivosComponent implements OnInit {
     this.dispositivoForm.get('veiculo')?.disable();
     this.dispositivoForm.get('motorista')?.disable();
     this.dispositivoForm.get('modelo')?.disable();
+    this.dispositivoForm.get('empresa')?.disable();
   }
 
   voltar(){

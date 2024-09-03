@@ -1,0 +1,71 @@
+<app-header></app-header>
+
+<div class="container col-sm-12">
+    <div class="card mt-5">
+        <div class="fs-5 card-header">
+            <label>Cadastro de Contratos</label>
+        </div>
+
+        <div class="card-body">
+            <form class="row" *ngIf="!loading" #contratos="ngForm" [formGroup]="contratoForm">
+
+                <div class="col-md-2">
+                    <label class="form-label">Número do contrato</label>
+                    <input type="text" class="form-control" id="numero" maxlength="6" formControlName="numero" [readonly]="this.visualizaContrato" (blur)="validaNumeroContrato()">
+                    <div class="valida-campo"  *ngIf="contratoForm.get('numero')?.errors?.['required'] && (contratoForm.get('numero')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+
+                <div class="col-md-4 ps-0">
+                    <label class="form-label">Cliente</label>
+                    <select class="form-select" formControlName="cliente" [attr.disabled]="this.visualizaContrato ? 'true' : null">
+                       <option value="" selected disabled hidden *ngIf="clientesLoading">Carregando...</option>
+                       <option value="" selected disabled hidden>Selecione um cliente</option>
+                       <option *ngFor="let cliente of clientes" [ngValue]="cliente.id">{{ cliente.descricao }}</option>
+                    </select>
+                    <div class="valida-campo" *ngIf="contratoForm.get('cliente')?.errors?.['required'] && (contratoForm.get('cliente')?.touched || submitted )">
+                        <p>Campo obrigatório</p>
+                    </div>
+                </div>
+
+                <div class="col-md-3 ps-0">
+                    <label class="form-label">Empresa</label>
+                    <select class="form-select" formControlName="empresa" [attr.disabled]="this.visualizaContrato?true:null">
+                       <option value="" selected disabled hidden>Selecione um veículo</option>
+                       <option value="" *ngIf="empresasLoading">Carregando...</option>
+                       <option *ngFor="let empresa of empresas" [ngValue]="empresa.id">{{ empresa.descricao }}</option>
+                    </select>
+                    <div class="valida-campo"  *ngIf="contratoForm.get('empresa')?.errors?.['required'] && (contratoForm.get('empresa')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+
+                <div class="col-md-3 ps-0">
+                    <label class="form-label">Obra</label>
+                    <select class="form-select" formControlName="obra" >
+                       <option value="" selected disabled hidden>Selecione uma obra</option>
+                       <option value="" *ngIf="obrasLoading">Carregando...</option>
+                       <option *ngFor="let obra of obras" [ngValue]="obra.id">{{ obra.descricao }}</option>
+                    </select>
+                    <div class="valida-campo" *ngIf="contratoForm.get('obra')?.errors?.['required'] && (contratoForm.get('obra')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="gap-2  d-md-flex justify-content-md-end card-footer">
+            <button (click)="voltar()" class="btn btn-secondary">Voltar</button>
+            <button type="submit" (click)="cadastrarContrato()" class="btn btn-primary">Cadastrar</button>    
+        </div>
+         
+    </div>
+</div>
+
+<app-msg-modal [titulo]="titulo" [mensagem]="mensagem" *ngIf="this.msgErro == true">
+    <button class="btn btn-primary" (click)="this.msgErro = false">Ok</button>
+</app-msg-modal>
+
+  

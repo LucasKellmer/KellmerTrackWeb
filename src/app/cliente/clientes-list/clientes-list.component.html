@@ -3,25 +3,21 @@
 <div class="container col-sm-12">
     <div class="card mt-5">
         <div class="fs-5 card-header">
-            <label>Lista de Obras</label>
+            <label>Lista de Clientes</label>
         </div>
 
         <div class="card-body">
 
             <form class="row">
-                <div class="col-md-6">
-                    <label class="form-label">Descrição</label>
-                    <input type="text" class="form-control" id="descricao" name="descricao" [(ngModel)]="descricao" (keydown)="EnterSubmit($event)">
-                </div>
-                <div class="col-md-6 ps-0">
-                    <label class="form-label">Cidade</label>
-                    <input type="text" class="form-control" id="cidade" name="cidade" [(ngModel)]="cidade" (keydown)="EnterSubmit($event)">
+                <div class="col-md-12">
+                    <label class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="nome" (keydown)="EnterSubmit($event)">
                 </div>
             </form>
         </div>
 
-        <div class="gap-2 d-md-flex justify-content-md-end card-footer">
-            <app-btn-cadastrar (click)="cadastrarObra()"></app-btn-cadastrar>
+        <div class="gap-2  d-md-flex justify-content-md-end card-footer">
+            <app-btn-cadastrar (click)="cadastrarCliente()"></app-btn-cadastrar>
             <button type="submit" class="btn btn-primary" (click)="pesquisar()" >Pesquisar</button>    
         </div>
                
@@ -37,13 +33,9 @@
                 [limit]="7" >
                     <ngx-datatable-column name="Id"  prop="id" [minWidth]="200">
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="Descrição"prop="descricao" [minWidth]="200">
+                    <ngx-datatable-column name="Nome"prop="nome" [minWidth]="200">
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="Cidade"  prop="cidade" [minWidth]="200">
-                    </ngx-datatable-column>
-                    <ngx-datatable-column name="Número"  prop="numero" [minWidth]="200">
-                    </ngx-datatable-column>
-                    <ngx-datatable-column name="Bairro"  prop="bairro" [minWidth]="200">
+                    <ngx-datatable-column name="Email"  prop="email" [minWidth]="200">
                     </ngx-datatable-column>
                     <ngx-datatable-column name="Ações" prop="id" [minWidth]="150">
                         <ng-template let-row="row" ngx-datatable-cell-template>
@@ -62,5 +54,5 @@
 
 <app-btn-excluir [mostrarModal]="this.btnExcluir">
     <button type="button" class="btn btn-secondary" (click)="btnExcluir = false">Voltar</button>
-    <button class="btn btn-danger" (click)="excluirObra()">Excluir</button>
+    <button class="btn btn-danger" (click)="excluirCliente()">Excluir</button>
 </app-btn-excluir>

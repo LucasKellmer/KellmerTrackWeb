@@ -1,0 +1,64 @@
+<app-header></app-header>
+
+<div class="container col-sm-12">
+    <div class="card mt-5">
+        <div class="fs-5 card-header">
+            <label>Cadastro de Clientes</label>
+        </div>
+
+        <div class="card-body">
+            <form class="row" *ngIf="!loading" #cliente="ngForm" [formGroup]="clienteForm">
+
+                <div class="col-md-1" *ngIf="this.visualizarCliente || this.editarCliente"> 
+                    <label class="form-label">Id</label>
+                    <input type="text" class="form-control" id="id" formControlName="id" [readonly]="this.visualizarCliente">
+                </div>
+                
+                <div class="col-md-2" [ngClass]="(!this.visualizarCliente && !this.editarCliente) ? 'col-md-4' : 'col-md-3 ps-0'">
+                    <label class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nome" formControlName="nome" [readonly]="this.visualizarCliente">
+                    <div class="valida-campo"  *ngIf="clienteForm.get('nome')?.errors?.['required'] && (clienteForm.get('nome')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+
+                <div class="col-md-2 ps-0">
+                    <label class="form-label">Cpf</label>
+                    <input type="text" class="form-control" id="cpf" formControlName="cpf" [readonly]="this.visualizarCliente">
+                    <div class="valida-campo"  *ngIf="clienteForm.get('cpf')?.errors?.['required'] && (clienteForm.get('cpf')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+
+                <div class="col-md-3 ps-0">
+                    <label class="form-label">Cnpj</label>
+                    <input type="text" class="form-control" id="cnpj" formControlName="cnpj" [readonly]="this.visualizarCliente">
+                    <div class="valida-campo"  *ngIf="clienteForm.get('cnpj')?.errors?.['required'] && (clienteForm.get('cnpj')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+
+                <div class="col-md-3 ps-0">
+                    <label class="form-label">Email</label>
+                    <input type="text" class="form-control" id="email" formControlName="email" [readonly]="this.visualizarCliente">
+                    <div class="valida-campo"  *ngIf="clienteForm.get('email')?.errors?.['required'] && (clienteForm.get('email')?.touched || submitted )">
+                        <label>Campo obrigatório</label>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="gap-2  d-md-flex justify-content-md-end card-footer">
+            <button (click)="voltar()" class="btn btn-secondary">Voltar</button>
+            <button type="submit" (click)="cadastrarCliente()" class="btn btn-primary">Cadastrar</button>    
+        </div>
+         
+    </div>
+</div>
+
+<app-msg-modal [titulo]="titulo" [mensagem]="mensagem" *ngIf="this.msgErro == true">
+    <button class="btn btn-primary" (click)="this.msgErro = false">Ok</button>
+</app-msg-modal>
+
+  

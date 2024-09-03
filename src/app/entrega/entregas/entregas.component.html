@@ -10,13 +10,13 @@
             <form class="row" *ngIf="!loading" #entregas="ngForm" [formGroup]="entregaForm">
 
                 <div [ngClass]="(!this.visualizaEntrega && !this.editaEntrega) ? 'col-md-6' : 'col-md-4 '">
-                    <label class="form-label">Obra</label>
-                    <select class="form-select" formControlName="obra" [attr.disabled]="this.visualizaEntrega?true:null">
-                       <option value="" selected disabled hidden>Selecione uma obra</option>
-                       <option value="" *ngIf="obrasLoading">Carregando...</option>
-                       <option *ngFor="let obra of obras" [ngValue]="obra.id">{{ obra.descricao }}</option>
+                    <label class="form-label">Contrato</label>
+                    <select class="form-select" formControlName="contrato" [attr.disabled]="this.visualizaEntrega?true:null">
+                       <option value="" selected disabled hidden>Selecione um contrato</option>
+                       <option value="" *ngIf="contratosLoading">Carregando...</option>
+                       <option *ngFor="let contrato of contratos" [ngValue]="contrato.id">{{ contrato.descricao }}</option>
                     </select>
-                    <div class="valida-campo"  *ngIf="entregaForm.get('obra')?.errors?.['required'] && (entregaForm.get('obra')?.touched || submitted )">
+                    <div class="valida-campo"  *ngIf="entregaForm.get('contrato')?.errors?.['required'] && (entregaForm.get('contrato')?.touched || submitted )">
                         <label>Campo obrigatório</label>
                     </div>
                 </div>
