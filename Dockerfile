@@ -16,7 +16,7 @@ COPY . .
 
 # Instalar dependências e construir a aplicação Angular
 RUN npm install
-RUN ng build --configuration=production
+RUN ng build
 
 # Fase de Produção
 FROM nginx:alpine
