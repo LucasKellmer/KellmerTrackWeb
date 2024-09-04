@@ -16,7 +16,7 @@ COPY . .
 
 # Instalar dependências e construir a aplicação Angular
 RUN npm install
-RUN ng build
+RUN ng build --configuration=production
 
 # Fase de Produção
 FROM nginx:alpine
@@ -25,7 +25,7 @@ FROM nginx:alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copiar build do Angular para a pasta padrão do Nginx
-COPY --from=BUILD /app/dist/kellmertrackweb/browser /usr/share/nginx/html
+COPY --from=BUILD /app/dist/kellmertrackweb /usr/share/nginx/html
 
 # Expor porta 80
 EXPOSE 80
