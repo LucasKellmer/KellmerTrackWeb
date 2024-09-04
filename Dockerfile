@@ -25,7 +25,7 @@ FROM nginx:alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copiar build do Angular para a pasta padrão do Nginx
-COPY --from=BUILD /app/dist/kellmertrackweb /usr/share/nginx/html
+COPY --from=BUILD /app/dist/kellmertrackweb/browser /usr/share/nginx/html
 
 # Expor porta 80
 EXPOSE 80
