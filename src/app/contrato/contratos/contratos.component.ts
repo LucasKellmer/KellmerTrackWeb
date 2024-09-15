@@ -148,8 +148,10 @@ export class ContratosComponent implements OnInit {
     const numero = this.contratoForm.get('numero')?.value
     console.log("numero: "+numero)
     this.contratoService.findContratoByNumero(numero).subscribe((dados : any)=>{
-      console.log("dados: ")
+      console.log("valida número contrato: ")
       console.log(dados)
+      console.log("Número:")
+      console.log(numero)
       if(dados != null && numero != ''){
         this.msgErro = true
         this.titulo = "Atenção!"
@@ -158,65 +160,15 @@ export class ContratosComponent implements OnInit {
         this.contratoForm.controls['numero'].markAsTouched()
       }
       else
-        this.contratoForm.controls['numero'].setErrors({'incorrect': false });
+        this.contratoForm.controls['numero'].setErrors(null);
     })
   }
-  /*async validaNumeroInterno(){
-    const numero = this.contratoForm.get('numero')?.value
-    this.contratoService.validaNumeroInterno(numero).subscribe((dados : any)=>{
-      console.log(dados)
-      if(dados != null && numero != ''){
-        this.msgErro = true
-        this.titulo = "Atenção!"
-        this.mensagem = "Já existe um dispositivo cadastrado com esse número interno"
-        this.numeroErro = true
-      }
-    })
-  }
-
-  async validaMac(){
-    const mac = this.contratoForm.get('mac')?.value
-    this.contratoService.validaMac(mac).subscribe((dados : any)=>{
-      console.log(dados)
-      if(dados != null && mac != ''){
-        this.msgErro = true
-        //this.macErro = true
-        this.titulo = "Atenção!"
-        this.mensagem = "Já existe um dispositivo cadastrado com esse mac"
-      }
-    })
-  }
-
-  async validaVeiculo(){
-    const empresa = this.contratoForm.get('empresa')?.value
-    this.contratoService.validaVeiculo(empresa).subscribe((dados : any)=>{
-      console.log("Veículo encontrado: "+dados)
-      if(dados != null && empresa != ''){
-        this.msgErro = true
-        //this.empresaErro = true
-        this.titulo = "Atenção!"
-        this.mensagem = "Já existe um dispositivo cadastrado com esse veículo"
-      }
-    })
-  }
-
-  async validaMotorista(){
-    const cliente = this.contratoForm.get('cliente')?.value
-    this.contratoService.validaMotorista(cliente).subscribe((dados : any)=>{
-      console.log("Motrista encontrado: "+dados)
-      if(dados != null && cliente != ''){
-        this.msgErro = true
-        //this.clienteErro = true
-        this.titulo = "Atenção!"
-        this.mensagem = "Já existe um dispositivo cadastrado com esse cliente"
-      }
-    })
-  }*/
 
   async cadastrarContrato(){
     this.submitted = true
     await this.validaCampos()
     console.log("this.contratoForm.valid = "+this.contratoForm.valid)
+    console.log(this.contratoForm)
     if(this.contratoForm.valid){
       const formJson : any = {
         numero : this.contratoForm.get('numero')?.value,

@@ -129,7 +129,7 @@ export class EmpresasComponent implements OnInit{
         this.empresaForm.controls['codigo'].markAsTouched()
       }
       else
-        this.empresaForm.controls['codigo'].setErrors({'incorrect': false });
+        this.empresaForm.controls['codigo'].setErrors(null);
     })
   }
 

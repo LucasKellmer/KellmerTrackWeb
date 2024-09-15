@@ -265,10 +265,12 @@ export class DispositivosComponent implements OnInit {
     (<any>Object).values(this.dispositivoForm.controls).forEach((control: any) => {
       control.markAsTouched();
     });
-    this.validaNumeroInterno()
-    this.validaMac()
-    this.validaVeiculo()
-    this.validaMotorista()
+    if(!this.editar){
+      this.validaNumeroInterno()
+      this.validaMac()
+      this.validaVeiculo()
+      this.validaMotorista()
+    }
   }
 
 }

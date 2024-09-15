@@ -121,9 +121,12 @@ export class VeiculosComponent implements OnInit {
       console.log("Veículo encontrado: "+dados)
       if(dados != null && veiculo != ''){
         this.veiculoForm.controls['identificacao'].setErrors({'incorrect': true });
+        this.veiculoForm.controls['identificacao'].markAsTouched()
         this.msgErro = true
         this.titulo = "Atenção!"
         this.mensagem = "Já existe um veículo cadastrado com essa identificação" 
+      }else{
+        this.veiculoForm.controls['identificacao'].setErrors(null);
       }
     })
   }
