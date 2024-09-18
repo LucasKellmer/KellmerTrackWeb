@@ -94,48 +94,6 @@ export class MonitoramentoComponent implements OnInit{
     this.socket.connect()
     this.subscribeSocketMessages()
 
-    /*this.veiculos = [
-      {
-      ultimaLocalizacao: {
-        descricao: 'VBL429',
-        motorista: "Lucas Kellmer",
-        veiculoId: "VBT410",
-        local: 'OBRA SÃO CRISTÓVÃO DOS CRICA',
-        latitude: -26.229275344759767,
-        longitude: -51.09551411122084,
-        momento: Date()
-      }
-    },
-    {
-      ultimaLocalizacao: {
-        veiculoId: 'VBL429',
-        motorista: 'Lucas Kellmer',
-        local: 'OBRA SÃO CRISTÓVÃO DOS CRICA',
-        latitude: -26.248880,
-        longitude: -51.113676,
-        momento: Date()
-      }
-    },
-    {
-      ultimaLocalizacao: {
-        veiculoId: 'VBL429',
-        motorista: 'Lucas Kellmer',
-        local: 'OBRA SÃO CRISTÓVÃO DOS CRICA',
-        latitude: -26.249206,
-        longitude: -51.112235,
-        momento: Date()
-      }
-    },
-    {
-      ultimaLocalizacao: {
-        veiculoId: 'VBL429',
-        motorista: 'Lucas Kellmer',
-        local: 'OBRA SÃO CRISTÓVÃO DOS CRICA',
-        latitude: -26.250350,
-        longitude: -51.108806,
-        momento: Date()
-      }
-    }]*/
     this.buscaVeiculos()
     this.buscaUsinas()
     this.buscaEntregas()

@@ -94,7 +94,7 @@ export class EntregasComponent {
         this.entregaForm = this.formBuider.group({
           id : entrega.id,
           veiculo : entrega.veiculo,
-          contrato : entrega.contrato.contrato.id,
+          contrato : entrega.contrato.numero,
           quantidade : entrega.quantidade,
           status : entrega.status
         })
