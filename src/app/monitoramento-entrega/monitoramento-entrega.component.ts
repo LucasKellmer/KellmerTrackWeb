@@ -29,9 +29,9 @@ export class MonitoramentoEntregaComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  buscaRotacoesByEntrega(entregaId : any){
-    if(entregaId != 0){
-      this.monitoramentoService.buscaRotacoesByEntrega(entregaId).subscribe((data : any) =>{
+  buscaRotacoesByEntrega(veiculo : any){
+    if(veiculo != 0){
+      this.monitoramentoService.buscaRotacoesByVeiculo(veiculo).subscribe((data : any) =>{
         this.rotacoes = data
         console.log("rotacoes:")
         console.log(this.rotacoes)

@@ -21,7 +21,11 @@ export class MonitoramentoService{
     return this.http.get(`${environment.base_url}/track/monitoramento/entregas`)
   }
 
-  buscaRotacoesByEntrega(entregaId : any){
-    return this.http.get(`${environment.base_url}/track/monitoramento/rotacoes/${entregaId}`)
+  buscaRotacoesByVeiculo(veiculo : any){
+    return this.http.get(`${environment.base_url}/track/monitoramento/veiculo/${veiculo}`)
   }
+
+  /*buscaRotacoesByEntrega(entregaId : any){
+    return this.http.get(`${environment.base_url}/track/monitoramento/rotacoes/${entregaId}`)
+  }*/
 }

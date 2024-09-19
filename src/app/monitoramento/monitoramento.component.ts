@@ -223,7 +223,10 @@ export class MonitoramentoComponent implements OnInit{
     }
 
     if(this.entregaSelected != undefined){
-      this.monitoramentoEntrega.buscaRotacoesByEntrega(this.entregaSelected.id)
+      console.log("=========== this.entregaSelected")
+      console.log(this.entregaSelected)
+      //this.monitoramentoEntrega.buscaRotacoesByEntrega(this.entregaSelected.id)
+      this.monitoramentoEntrega.buscaRotacoesByEntrega(this.entregaSelected.veiculo)
     }else{
       this.monitoramentoEntrega.buscaRotacoesByEntrega(0)
     }
