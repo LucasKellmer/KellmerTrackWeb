@@ -21,7 +21,7 @@
              <span>
                 {{ rotacao.momento | date:'HH:mm'}}
              </span>
-                {{ rotacao.rpm > 0 ? 'MISTURANDO' : rotacao.rpm < 0 ? 'DESCARREGANDO' : 'PARADO' }}
+                {{ rotacao.direcao > 0 ? 'MISTURANDO' : rotacao.direcao < 0 ? 'DESCARREGANDO' : 'PARADO' }}
              </li> 
          </ul>
     </div>

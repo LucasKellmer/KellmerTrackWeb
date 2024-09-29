@@ -38,13 +38,28 @@ export class MonitoramentoComponent implements OnInit{
 
   verEntrega : boolean = false;
 
-  styles = [{
-        featureType: "poi",
-        elementType: "labels",
-        stylers: [{ 
-          visibility: "off" 
-        }]
-      }]
+  styles = [
+    {
+      elementType: "geometry",
+      stylers: [{ color: "#c6c6c6" }]
+    },
+    {
+      featureType: "road",
+      elementType: "geometry",
+      stylers: [{ color: "#ffffff" }]
+    },
+    {
+      featureType: "water",
+      elementType: "geometry",
+      stylers: [{ color: "#abcce6" }]
+    },
+    {
+      featureType: "poi",
+      elementType: "labels",
+      stylers: [{ 
+        visibility: "off" 
+    }]}
+  ];
 
   mapOptions: google.maps.MapOptions = {
     zoom:17,
@@ -183,6 +198,10 @@ export class MonitoramentoComponent implements OnInit{
   buscaUsinas(){
     this.monitoramentoService.buscaUsinas().subscribe(data => {
       this.usinas = data
+      this.center = {
+        lat: this.usinas[0].latitude,
+        lng: this.usinas[0].longitude
+      }
     })
   }
 

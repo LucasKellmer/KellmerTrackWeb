@@ -47,7 +47,7 @@ export class TrajetosComponent implements OnInit, AfterViewInit{
 
   usinas: any[] = [];
   entregas : any[] = []
-  showEntregas : boolean = false
+  showEntregas : boolean = true
 
   private polyline: google.maps.Polyline | null = null;
   
@@ -78,7 +78,6 @@ export class TrajetosComponent implements OnInit, AfterViewInit{
         visibility: "off" 
     }]}
   ];
-  
 
   mapOptions: google.maps.MapOptions = {
     zoom: 17,
