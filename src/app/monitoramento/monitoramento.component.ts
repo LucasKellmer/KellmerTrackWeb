@@ -241,11 +241,8 @@ export class MonitoramentoComponent implements OnInit{
       this.map.googleMap!.setCenter(this.center);
     }
 
-    if(this.entregaSelected != undefined){
-      console.log("=========== this.entregaSelected")
-      console.log(this.entregaSelected)
-      //this.monitoramentoEntrega.buscaRotacoesByEntrega(this.entregaSelected.id)
-      this.monitoramentoEntrega.buscaRotacoesByEntrega(this.entregaSelected.veiculo)
+    if(veiculo.veiculo != null && veiculo.veiculo != ''){
+      this.monitoramentoEntrega.buscaRotacoesByEntrega(veiculo.veiculo)
     }else{
       this.monitoramentoEntrega.buscaRotacoesByEntrega(0)
     }

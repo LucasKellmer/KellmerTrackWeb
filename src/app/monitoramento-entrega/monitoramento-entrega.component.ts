@@ -47,7 +47,6 @@ export class MonitoramentoEntregaComponent implements OnInit {
         console.log("Rotacoes filtradas:")
         console.log(groups)
 
-        // Edit: to add it in the array format instead
         this.rotacoesAgrupadas = Object.keys(groups).map((date : any) => {
           return {
             date,
@@ -57,8 +56,6 @@ export class MonitoramentoEntregaComponent implements OnInit {
 
         console.log("Rotacoes filtradas array:")
         console.log(this.rotacoesAgrupadas)
-        
-        //console.log(groupArrays);
       })
     }else{
       this.rotacoes = []

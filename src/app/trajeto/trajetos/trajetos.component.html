@@ -23,7 +23,7 @@
                 <map-marker
                     [position]="{ lat: currentLocation.latitude, lng: currentLocation.longitude }"
                     [icon]="veiculoIcon"
-                    [label]="veiculo">
+                    [label]="{text: getLabelVeiculo()}">
                 </map-marker>
 
                 <map-circle *ngFor="let usina of usinas"

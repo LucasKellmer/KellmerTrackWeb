@@ -23,7 +23,7 @@
                 <map-marker *ngFor="let item of veiculos"
                     [position]="{ lat: item.ultimaLocalizacao.latitude, lng: item.ultimaLocalizacao.longitude }"
                     [icon]="veiculoIcon"
-                    [label]="item.ultimaLocalizacao.veiculoId">  
+                    [label]="{text:  item.ultimaLocalizacao.veiculoId + ' - ' + item.ultimaLocalizacao.velocidade + ' KM/h'}">  
                 </map-marker>
 
                 <map-marker *ngFor="let usina of usinas"

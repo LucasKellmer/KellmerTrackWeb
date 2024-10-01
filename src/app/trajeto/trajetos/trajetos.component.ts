@@ -27,12 +27,13 @@ export class TrajetosComponent implements OnInit, AfterViewInit{
 
   trajetoId: any
   veiculo : any
+  momento : any
   dataTrajeto : any
   display: any;
   marker!: google.maps.Marker;
   locations : any[] = [];
   rotacoes : any[] = []
-  currentLocation : any = { latitude: 0, longitude: 0 }
+  currentLocation : any = { latitude: 0, longitude: 0, velocidade:0, momento: Date() }
   filteredLocations: any[] = [];
 
   isPaused: boolean = false;
@@ -133,6 +134,8 @@ export class TrajetosComponent implements OnInit, AfterViewInit{
         };
         this.currentLocation.latitude = dados.trajeto[0].latitude
         this.currentLocation.longitude = dados.trajeto[0].longitude
+        this.currentLocation.momento = dados.trajeto[0].velocidade
+        this.currentLocation.momento = dados.trajeto[0].momento
         this.locations = dados.trajeto
         this.veiculo = dados.veiculo
         this.rotacoes = dados.rotacoes
@@ -225,6 +228,8 @@ export class TrajetosComponent implements OnInit, AfterViewInit{
         const lng = start.lng + (end.lng - start.lng) * (this.step / this.velocidadeTrajeto);
         this.currentLocation.latitude = lat
         this.currentLocation.longitude = lng
+        this.currentLocation.velocidade = this.filteredLocations[this.index].velocidade
+        this.currentLocation.momento = this.filteredLocations[this.index].momento
         this.step++;
 
         if (!this.isPaused) {
@@ -289,5 +294,11 @@ export class TrajetosComponent implements OnInit, AfterViewInit{
 
   mostrarEntregas(value : any){
     this.showEntregas = value
+  }
+
+  getLabelVeiculo(){
+    var formatado = this.datepipe.transform(this.currentLocation.momento, 'HH:mm')
+
+    return `${formatado} h - ${this.currentLocation.velocidade} km/h`
   }
 }
