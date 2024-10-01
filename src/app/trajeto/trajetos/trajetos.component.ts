@@ -297,8 +297,8 @@ export class TrajetosComponent implements OnInit, AfterViewInit{
   }
 
   getLabelVeiculo(){
-    var formatado = this.datepipe.transform(this.currentLocation.momento, 'HH:mm')
-
-    return `${formatado} h - ${this.currentLocation.velocidade} km/h`
+    var momento = new Date(this.currentLocation.momento)
+    var dataAjustada = new Date(momento.getTime() - 3 * 60 * 60 * 1000)
+    return `${this.datepipe.transform(dataAjustada, 'HH:mm')} h - ${this.currentLocation.velocidade} km/h`
   }
 }
