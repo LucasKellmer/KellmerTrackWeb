@@ -12,29 +12,23 @@
             }}
         </span>
     </div>
-    <div class="title" style="border-radius: 0;">
+    <div class="title" style="border-radius: 0; justify-content: space-around;">
         <span>HISTÓRICO DE ROTAÇÃO</span>
+        <button class="btn-refresh p-0" (click)="buscaRotacoesByEntrega(null)">
+            <i class="fa fa-refresh fa-1x" ></i>
+        </button>
     </div>
-    <div *ngFor="let rotacao of rotacoes">
-        <ul>
-            <li>
-             <span>
-                {{ rotacao.momento | date:'HH:mm'}}
-             </span>
-                {{ rotacao.direcao > 0 ? 'MISTURANDO' : rotacao.direcao < 0 ? 'DESCARREGANDO' : 'PARADO' }}
-             </li> 
-         </ul>
-    </div>
-    <!--<div *ngFor="let rotacao of rotacoesAgrupadas">
-        <div>
-            {{ rotacao.date | date:'HH:mm'}}
-        </div>
-        <div *ngFor="let item of rotacao.games">
+    <app-loading *ngIf="loading == true"></app-loading>
+    <div *ngIf="loading == false">
+        <div *ngFor="let rotacao of rotacoes">
             <ul>
                 <li>
-                    {{ item.rpm > 0 ? 'MISTURANDO' : item.rpm < 0 ? 'DESCARREGANDO' : 'PARADO' }}
-                    </li> 
-                </ul>
+                 <span>
+                    {{ rotacao.momento | date:'HH:mm'}}
+                 </span>
+                    {{ rotacao.direcao > 0 ? 'MISTURANDO' : rotacao.direcao < 0 ? 'DESCARREGANDO' : 'PARADO' }}
+                 </li> 
+             </ul>
         </div>
-    </div>-->
+    </div>
 </div>

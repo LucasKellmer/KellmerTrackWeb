@@ -12,8 +12,8 @@
 
                 <div class="col-md-2">
                     <label class="form-label">Identificação</label>
-                    <input type="text" class="form-control" id="identificacao" formControlName="identificacao">
-                    <div class="valida-campo"  *ngIf="veiculoForm.get('identificacao')?.errors?.['required'] && (veiculoForm.get('identificacao')?.touched || submitted )">
+                    <input type="text" class="form-control" id="identificacao" formControlName="identificacao" (blur)="validaVeiculo()">
+                    <div class="valida-campo"  *ngIf="(veiculoForm.get('identificacao')?.errors?.['required'] || veiculoForm.get('identificacao')?.errors?.['incorrect']) && (veiculoForm.get('identificacao')?.touched || submitted )">
                         <label>Campo obrigatório</label>
                     </div>
                 </div>

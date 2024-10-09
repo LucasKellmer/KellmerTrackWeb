@@ -5,6 +5,7 @@ import { HeaderComponent } from '../../shared/header/header.component';
 import { MsgModalComponent } from '../../shared/msg-modal/msg-modal.component';
 import { EmpresaService } from '../empresa.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoadingComponent } from '../../shared/loading/loading.component';
 
 @Component({
   selector: 'app-empresas',
@@ -14,7 +15,8 @@ import { ActivatedRoute, Router } from '@angular/router';
     ReactiveFormsModule , 
     HeaderComponent,
     CommonModule,
-    MsgModalComponent
+    MsgModalComponent,
+    LoadingComponent,
   ],
   templateUrl: './empresas.component.html',
   styleUrl: './empresas.component.scss'
@@ -61,6 +63,7 @@ export class EmpresasComponent implements OnInit{
 
   editar(){
     this.editaEmpresa = true
+    this.loading = true
     this.empresaService.findEmpresaByCodigo(this.empresaCodigo).subscribe((empresa : any)=>{
       console.log(empresa)
       this.empresaForm = this.formBuider.group({
@@ -70,11 +73,13 @@ export class EmpresasComponent implements OnInit{
         longitude : empresa.longitude,
         raio : empresa.raio,
       })
+      this.loading = false
     })
   }
 
   visualizar(){
     this.visualizaEmpresa = true
+    this.loading = true
     this.empresaService.findEmpresaByCodigo(this.empresaCodigo).subscribe((empresa : any)=>{
       this.empresaForm = this.formBuider.group({
         codigo : empresa.codigo,
@@ -84,6 +89,7 @@ export class EmpresasComponent implements OnInit{
         raio : empresa.raio,
         dataVinculo : empresa.dataVinculo,
       })
+      this.loading = false
     })
   }
 
@@ -92,6 +98,7 @@ export class EmpresasComponent implements OnInit{
     await this.validaCampos()
     console.log("this.empresaForm.valid = "+this.empresaForm.valid)
     if(this.empresaForm.valid){
+      this.loading = true
       const formJson : any = {
         codigo : this.empresaForm.get('codigo')?.value,
         descricao : this.empresaForm.get('descricao')?.value,
@@ -103,8 +110,10 @@ export class EmpresasComponent implements OnInit{
       console.log(formJson)
       this.empresaService.postEmpresa(formJson).subscribe(()=>{
         this.empresaForm.reset()
+        this.loading = false
         this.voltar()
       },()=>{
+        this.loading = false
       })
     }
   }

@@ -60,7 +60,7 @@ export class TrajetosComponent implements OnInit, AfterViewInit{
   styles = [
     {
       elementType: "geometry",
-      stylers: [{ color: "#c6c6c6" }]
+      stylers: [{ color: "#e1e1e1" }]
     },
     {
       featureType: "road",

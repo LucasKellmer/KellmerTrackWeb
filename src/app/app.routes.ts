@@ -56,8 +56,8 @@ export const routes: Routes = [
 
     { path: 'contratos', component: ContratosListComponent },
     { path: 'contratos/novo', component: ContratosComponent },
-    { path: 'contratos/:id', component: ContratosComponent },
-    { path: 'contratos/editar/:id', component: ContratosComponent },
+    { path: 'contratos/:numero', component: ContratosComponent },
+    { path: 'contratos/editar/:numero', component: ContratosComponent },
 
     { path: 'clientes', component: ClientesListComponent },
     { path: 'clientes/novo', component: ClientesComponent },

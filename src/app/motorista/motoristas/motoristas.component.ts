@@ -6,6 +6,7 @@ import { MotoristaService } from '../motorista.service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { HeaderComponent } from '../../shared/header/header.component';
 import { MsgModalComponent } from '../../shared/msg-modal/msg-modal.component';
+import { LoadingComponent } from '../../shared/loading/loading.component';
 
 @Component({
   selector: 'app-motoristas',
@@ -15,6 +16,7 @@ import { MsgModalComponent } from '../../shared/msg-modal/msg-modal.component';
     ReactiveFormsModule, 
     HeaderComponent,
     CommonModule,
+    LoadingComponent,
   ],
   templateUrl: './motoristas.component.html',
   styleUrl: './motoristas.component.scss'
@@ -63,21 +65,25 @@ export class MotoristasComponent implements OnInit {
 
   editar(){
     this.editaMotorista = true
+    this.loading = true
     this.motoristaService.findMotoristaById(this.motoristaId).subscribe((motorista : any)=>{
       this.motoristaForm = this.formBuider.group({
         id : motorista.id,
         nome : motorista.nome
       })
+      this.loading = false
     })
   }
 
   visualizar(){
     this.visualizaMotorista = true
+    this.loading = true
     this.motoristaService.findMotoristaById(this.motoristaId).subscribe((motorista : any)=>{
       this.motoristaForm = this.formBuider.group({
         id : motorista.id,
         nome : motorista.nome
       })
+      this.loading = false
     })
   }
 
@@ -89,6 +95,7 @@ export class MotoristasComponent implements OnInit {
     this.submitted = true
     await this.validaCampos()
     if(this.motoristaForm.valid){
+      this.loading = true
       const formJson : any = {
         id : this.motoristaForm.get('id')?.value,
         nome : this.motoristaForm.get('nome')?.value,
@@ -96,14 +103,11 @@ export class MotoristasComponent implements OnInit {
 
       console.log(formJson)
       this.motoristaService.post(formJson).subscribe(()=>{
-        if(this.motoristaId == 'novo'){
-          //this.exibirToast()
-        }else{
-          //this.exibirToast()
-        }
         this.motoristaForm.reset()
+        this.loading = false
         this.voltar()
       },()=>{
+        this.loading = false
       })
     }
   }

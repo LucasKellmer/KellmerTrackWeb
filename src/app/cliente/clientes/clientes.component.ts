@@ -5,6 +5,7 @@ import { ClientesService } from '../clientes.service';
 import { NgIf, NgFor, CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../shared/header/header.component';
 import { MsgModalComponent } from '../../shared/msg-modal/msg-modal.component';
+import { LoadingComponent } from '../../shared/loading/loading.component';
 
 @Component({
   selector: 'app-clientes',
@@ -14,7 +15,8 @@ import { MsgModalComponent } from '../../shared/msg-modal/msg-modal.component';
     ReactiveFormsModule , 
     HeaderComponent,
     CommonModule,
-    MsgModalComponent
+    MsgModalComponent,
+    LoadingComponent,
   ],
   templateUrl: './clientes.component.html',
   styleUrl: './clientes.component.scss'
@@ -61,6 +63,7 @@ export class ClientesComponent implements OnInit{
 
   editar(){
     this.editarCliente = true
+    this.loading = true
     this.clienteService.findClienteById(this.clienteId).subscribe((cliente : any)=>{
       console.log(cliente)
       this.clienteForm = this.formBuider.group({
@@ -70,11 +73,13 @@ export class ClientesComponent implements OnInit{
         cnpj : cliente.cnpj,
         email : cliente.email
       })
+      this.loading = false
     })
   }
 
   visualizar(){
     this.visualizarCliente = true
+    this.loading = true
     this.clienteService.findClienteById(this.clienteId).subscribe((cliente : any)=>{
       this.clienteForm = this.formBuider.group({
         id : cliente.id,
@@ -83,14 +88,15 @@ export class ClientesComponent implements OnInit{
         cnpj : cliente.cnpj,
         email : cliente.email
       })
+      this.loading = false
     })
   }
 
   async cadastrarCliente(){
     this.submitted = true
     await this.validaCampos()
-    console.log("this.clienteForm.valid = "+this.clienteForm.valid)
     if(this.clienteForm.valid){
+      this.loading = true
       const formJson : any = {
         id : this.clienteForm.get('id')?.value,
         nome : this.clienteForm.get('nome')?.value,
@@ -103,7 +109,9 @@ export class ClientesComponent implements OnInit{
       this.clienteService.postCliente(formJson).subscribe(()=>{
         this.clienteForm.reset()
         this.voltar()
+        this.loading = false
       },()=>{
+        this.loading = false
       })
     }
   }

@@ -99,18 +99,13 @@ export class VeiculosComponent implements OnInit {
         identificacao : this.veiculoForm.get('identificacao')?.value,
         descricao : this.veiculoForm.get('descricao')?.value,
       }
-
       console.log(formJson)
       this.veiculoService.post(formJson).subscribe(()=>{
-        if(this.veiculoId == 'novo'){
-          //this.exibirToast()
-        }else{
-          //this.exibirToast()
-        }
         this.veiculoForm.reset()
         this.voltar()
         this.loading = false
       },()=>{
+        this.loading = false
       })
     }
   }
@@ -134,7 +129,6 @@ export class VeiculosComponent implements OnInit {
   async validaCampos() {
     (<any>Object).values(this.veiculoForm.controls).forEach((control: any) => {
       control.markAsTouched();
-      this.validaVeiculo()
     });
   }
 

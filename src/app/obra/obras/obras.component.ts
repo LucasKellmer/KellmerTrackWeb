@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgIf, NgFor, CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../shared/header/header.component';
 import { MsgModalComponent } from '../../shared/msg-modal/msg-modal.component';
+import { LoadingComponent } from '../../shared/loading/loading.component';
 
 @Component({
   selector: 'app-obras',
@@ -14,7 +15,8 @@ import { MsgModalComponent } from '../../shared/msg-modal/msg-modal.component';
     ReactiveFormsModule , 
     HeaderComponent,
     CommonModule,
-    MsgModalComponent
+    MsgModalComponent,
+    LoadingComponent,
   ],
   templateUrl: './obras.component.html',
   styleUrl: './obras.component.scss'
@@ -65,6 +67,7 @@ export class ObrasComponent  implements OnInit{
 
   editar(){
     this.editarObra = true
+    this.loading = true
     this.obraService.findObraById(this.obraId).subscribe((obra : any)=>{
       console.log(obra)
       this.obraForm = this.formBuider.group({
@@ -78,11 +81,13 @@ export class ObrasComponent  implements OnInit{
         longitude : obra.longitude,
         raio : obra.raio,
       })
+      this.loading = false
     })
   }
 
   visualizar(){
     this.visualizarObra = true
+    this.loading = true
     this.obraService.findObraById(this.obraId).subscribe((obra : any)=>{
       this.obraForm = this.formBuider.group({
         id : obra.id,
@@ -96,11 +101,13 @@ export class ObrasComponent  implements OnInit{
         raio : obra.raio,
         dataVinculo : obra.dataVinculo,
       })
+      this.loading = false
     })
   }
 
   async cadastrarObra(){
     this.submitted = true
+    this.loading = true
     await this.validaCampos()
     console.log("this.obraForm.valid = "+this.obraForm.valid)
     if(this.obraForm.valid){
@@ -118,6 +125,7 @@ export class ObrasComponent  implements OnInit{
       console.log(formJson)
       this.obraService.postObra(formJson).subscribe(()=>{
         this.obraForm.reset()
+        this.loading = false
         this.voltar()
       },()=>{
       })

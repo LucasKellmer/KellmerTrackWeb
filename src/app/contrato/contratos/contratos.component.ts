@@ -7,6 +7,7 @@ import { ToastService } from '../../shared/toast/toast.service';
 import { NgIf, NgFor, CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../shared/header/header.component';
 import { MsgModalComponent } from '../../shared/msg-modal/msg-modal.component';
+import { LoadingComponent } from '../../shared/loading/loading.component';
 
 @Component({
   selector: 'app-contratos',
@@ -16,7 +17,8 @@ import { MsgModalComponent } from '../../shared/msg-modal/msg-modal.component';
     ReactiveFormsModule , 
     HeaderComponent,
     CommonModule,
-    MsgModalComponent
+    MsgModalComponent,
+    LoadingComponent,
   ],
   templateUrl: './contratos.component.html',
   styleUrl: './contratos.component.scss'
@@ -61,7 +63,6 @@ export class ContratosComponent implements OnInit {
       obra : new UntypedFormControl('', [Validators.required]),
     })
     this.contratoNumero = this.activatedRoute.snapshot.paramMap.get("numero")
-    console.log("contratoNumero: "+ this.contratoNumero)
     this.rota = this.router.url
 
     if(!this.rota.match('novo')) {
@@ -105,32 +106,38 @@ export class ContratosComponent implements OnInit {
 
   editar(){
     this.editaContrato = true
-    this.contratoService.findContratoByNumero(this.contratoNumero).subscribe((dispositivo : any)=>{
-      console.log(dispositivo)
+    this.loading = true
+    this.contratoService.findContratoByNumero(this.contratoNumero).subscribe((contrato : any)=>{
+      console.log(this.contratoNumero)
+      console.log(contrato)
       this.contratoForm = this.formBuider.group({
-        numero : dispositivo.numero,
-        cliente : dispositivo.clienteId,
-        empresa : dispositivo.empresa,
-        obra : dispositivo.obra,
+        numero : contrato.numero,
+        cliente : contrato.cliente,
+        empresa : contrato.empresa,
+        obra : contrato.obra,
       })
       this.buscaCliente()
       this.buscaEmpresas()
       this.buscaObras()
+      this.loading = false
     })
   }
 
   visualizar(){
     this.visualizaContrato = true
-    this.contratoService.findContratoByNumero(this.contratoNumero).subscribe((dispositivo : any)=>{
+    this.loading = true
+    this.contratoService.findContratoByNumero(this.contratoNumero).subscribe((contrato : any)=>{
       this.contratoForm = this.formBuider.group({
-        numero : dispositivo.numero,
-        cliente : dispositivo.clienteId,
-        empresa : dispositivo.empresa,
-        obra : dispositivo.obra
+        numero : contrato.numero,
+        cliente : contrato.cliente,
+        empresa : contrato.empresa,
+        obra : contrato.obra
       })
       this.buscaCliente()
       this.buscaEmpresas()
+      this.buscaObras()
       this.desabilitaCombobox()
+      this.loading = false
     })
   }
 
@@ -146,7 +153,6 @@ export class ContratosComponent implements OnInit {
 
   async validaNumeroContrato(){
     const numero = this.contratoForm.get('numero')?.value
-    console.log("numero: "+numero)
     this.contratoService.findContratoByNumero(numero).subscribe((dados : any)=>{
       console.log("valida número contrato: ")
       console.log(dados)
@@ -170,6 +176,7 @@ export class ContratosComponent implements OnInit {
     console.log("this.contratoForm.valid = "+this.contratoForm.valid)
     console.log(this.contratoForm)
     if(this.contratoForm.valid){
+      this.loading = true
       const formJson : any = {
         numero : this.contratoForm.get('numero')?.value,
         cliente : this.contratoForm.get('cliente')?.value,
@@ -181,7 +188,9 @@ export class ContratosComponent implements OnInit {
       this.contratoService.postContrato(formJson).subscribe(()=>{
         this.contratoForm.reset()
         this.voltar()
+        this.loading = false
       },()=>{
+        this.loading = false
       })
     }
   }

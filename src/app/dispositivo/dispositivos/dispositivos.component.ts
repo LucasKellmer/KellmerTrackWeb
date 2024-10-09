@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DispositivoService } from '../dispositivo.service';
 import { MsgModalComponent } from '../../shared/msg-modal/msg-modal.component';
 import { ToastService } from '../../shared/toast/toast.service';
+import { LoadingComponent } from '../../shared/loading/loading.component';
 
 @Component({
   selector: 'app-dispositivos',
@@ -16,7 +17,8 @@ import { ToastService } from '../../shared/toast/toast.service';
     ReactiveFormsModule , 
     HeaderComponent,
     CommonModule,
-    MsgModalComponent
+    MsgModalComponent,
+    LoadingComponent,
   ],
   templateUrl: './dispositivos.component.html',
   styleUrl: './dispositivos.component.scss'
@@ -115,6 +117,7 @@ export class DispositivosComponent implements OnInit {
 
   editar(){
     this.editaDispositivo = true
+    this.loading = true
     this.dispositivoService.findDispositivoByNumeroInterno(this.dispositivoNumeroInterno).subscribe((dispositivo : any)=>{
       console.log(dispositivo)
       this.dispositivoForm = this.formBuider.group({
@@ -129,11 +132,13 @@ export class DispositivosComponent implements OnInit {
       this.buscaMotorista()
       this.buscaVeiculos()
       this.buscaEmpresas()
+      this.loading = false
     })
   }
 
   visualizar(){
     this.visualizaDispositivo = true
+    this.loading = true
     this.dispositivoService.findDispositivoByNumeroInterno(this.dispositivoNumeroInterno).subscribe((dispositivo : any)=>{
       this.dispositivoForm = this.formBuider.group({
         numeroInterno : dispositivo.numeroInterno,
@@ -148,6 +153,7 @@ export class DispositivosComponent implements OnInit {
       this.buscaVeiculos()
       this.buscaEmpresas()
       this.desabilitaCombobox()
+      this.loading = false
     })
   }
 
@@ -219,6 +225,7 @@ export class DispositivosComponent implements OnInit {
     await this.validaCampos()
     console.log("this.dispositivoForm.valid = "+this.dispositivoForm.valid)
     if(this.dispositivoForm.valid){
+      this.loading = true
       const formJson : any = {
         numeroInterno : this.dispositivoForm.get('numeroInterno')?.value,
         motoristaId : this.dispositivoForm.get('motorista')?.value,
@@ -236,6 +243,7 @@ export class DispositivosComponent implements OnInit {
           this.exibirToast()
         }
         this.dispositivoForm.reset()
+        this.loading = false
         this.voltar()
       },()=>{
       })

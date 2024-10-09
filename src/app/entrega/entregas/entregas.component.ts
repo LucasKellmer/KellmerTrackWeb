@@ -6,6 +6,7 @@ import { MsgModalComponent } from '../../shared/msg-modal/msg-modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PesquisaService } from '../../pesquisa.service';
 import { EntregasService } from '../entregas.service';
+import { LoadingComponent } from '../../shared/loading/loading.component';
 
 @Component({
   selector: 'app-entregas',
@@ -15,7 +16,8 @@ import { EntregasService } from '../entregas.service';
     ReactiveFormsModule , 
     HeaderComponent,
     CommonModule,
-    MsgModalComponent
+    MsgModalComponent,
+    LoadingComponent,
   ],
   templateUrl: './entregas.component.html',
   styleUrl: './entregas.component.scss'
@@ -89,6 +91,7 @@ export class EntregasComponent {
   
     editar(){
       this.editaEntrega = true
+      this.loading = true
       this.entregaService.findEntregaById(this.entregaId).subscribe((entrega : any)=>{
         console.log(entrega)
         this.entregaForm = this.formBuider.group({
@@ -101,22 +104,25 @@ export class EntregasComponent {
         this.buscaContrato()
         this.buscaVeiculos()
         this.desabilitaCombobox()
+        this.loading = false
       })
     }
   
     visualizar(){
       this.visualizaEntrega = true
+      this.loading = true
       this.entregaService.findEntregaById(this.entregaId).subscribe((entrega : any)=>{
         this.entregaForm = this.formBuider.group({
           id : entrega.id,
           veiculo : entrega.veiculo,
-          contrato : entrega.contrato.contrato.id,
+          contrato : entrega.contrato.numero,
           quantidade : entrega.quantidade,
           status : entrega.status
         })
         this.buscaContrato()
         this.buscaVeiculos()
         this.desabilitaCombobox()
+        this.loading = false
       })
     }
   
@@ -136,6 +142,7 @@ export class EntregasComponent {
       this.submitted = true
       await this.validaCampos()
       if(this.entregaForm.valid){
+        this.loading = true
         const formJson : any = {
           id : this.entregaForm.get('id')?.value,
           momento : new Date,
@@ -146,14 +153,11 @@ export class EntregasComponent {
   
         console.log(formJson)
         this.entregaService.postEntrega(formJson).subscribe(()=>{
-          if(this.entregaId == 'novo'){
-            
-          }else{
-            
-          }
           this.entregaForm.reset()
+          this.loading = false
           this.voltar()
         },()=>{
+          this.loading = false
         })
       }
     }
